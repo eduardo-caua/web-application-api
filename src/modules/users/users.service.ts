@@ -14,6 +14,7 @@ export class UsersService {
 
   async find(name: string, offset: number, limit: number): Promise<UsersDto> {
     let options: object = {
+      attributes: {exclude: ['password']},
       limit: limit,
       offset: offset,
       order: [['name', 'ASC']],
@@ -32,6 +33,7 @@ export class UsersService {
 
   async findAll(name: string): Promise<UserDto[]> {
     let options: object = {
+      attributes: {exclude: ['password']},
       order: [['name', 'ASC']],
     };
 
@@ -49,7 +51,7 @@ export class UsersService {
   }
 
   async findOneById(id: string): Promise<User> {
-    return await this.userRepository.findOne<User>({ where: { id } });
+    return await this.userRepository.findOne<User>({ attributes: { exclude: ['password'] }, where: { id } });
   }
 
   async create(user: UserDto): Promise<User> {
