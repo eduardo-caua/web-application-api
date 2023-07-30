@@ -13,7 +13,7 @@ export class UsersService {
   ) {}
 
   async find(name: string, offset: number, limit: number): Promise<UsersDto> {
-    const options: object = {
+    let options: object = {
       limit: limit,
       offset: offset,
       order: [['name', 'ASC']],
@@ -30,8 +30,22 @@ export class UsersService {
     return await this.userRepository.findAndCountAll<User>(options);
   }
 
-  async findAll(): Promise<UserDto[]> {
-    return await this.userRepository.findAll<User>();
+  async findAll(name: string): Promise<UserDto[]> {
+    let options: object = {
+      order: [['name', 'ASC']],
+    };
+
+    options['where'] = {};
+
+    if (name) {
+      options['where'] = {
+        name: {
+          [Op.iLike]: `%${name}%`,
+        },
+      };
+    }
+
+    return await this.userRepository.findAll<User>(options);
   }
 
   async findOneById(id: string): Promise<User> {

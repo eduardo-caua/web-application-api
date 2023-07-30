@@ -1,6 +1,6 @@
-import { Controller, Get, HttpCode, HttpStatus, Res } from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, Res, Query } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import { ApiOperation, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiProduces, ApiResponse, ApiTags, ApiQuery } from '@nestjs/swagger';
 import { Parser as CsvParser } from 'json2csv';
 import { Response } from 'express';
 
@@ -13,9 +13,13 @@ export class ReportsController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Download user report' })
   @ApiResponse({ status: 200, description: 'Successfully requested.' })
+  @ApiQuery({ name: 'name', required: false, type: String })
   @ApiProduces('text/csv')
-  async findUsers(@Res() res: Response) {
-    const users = await this.usersService.findAll();
+  async findUsers(
+    @Res() res: Response,
+    @Query('name') name?: string,
+  ) {
+    const users = await this.usersService.findAll(name);
     const fields = ['id', 'name', 'email', 'phone', 'createdAt', 'updatedAt'];
     const csvParser = new CsvParser({ fields });
     const csv = csvParser.parse(users);
