@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UserDto {
+export class UserRequestDto {
   @ApiProperty({ example: 'John Doe', description: 'The user name' })
   readonly name: string;
 
@@ -15,4 +15,10 @@ export class UserDto {
     description: 'The user phone number',
   })
   readonly phone: string;
+
+  @ApiProperty({
+    example: 'secret-word',
+    description: 'The user password',
+  })
+  readonly password: string;
 }

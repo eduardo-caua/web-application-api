@@ -1,9 +1,10 @@
 import { Controller, Body, Post, Get, Put, Delete, Param, HttpCode, HttpStatus, Query } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags, ApiQuery } from '@nestjs/swagger';
 import { OFFSET, LIMIT } from '../../core/constants';
 import { UsersService } from './users.service';
-import { UserDto } from '../users/dto/user.dto';
-import { ApiOperation, ApiResponse, ApiTags, ApiQuery } from '@nestjs/swagger';
+import { UserDto } from './dto/user.dto';
 import { UsersDto } from './dto/users.dto';
+import { UserRequestDto } from './dto/userRequest.dto';
 
 @ApiTags('Users')
 @Controller({ path: 'users', version: ['v1'] })
@@ -43,9 +44,9 @@ export class UsersController {
   @ApiResponse({
     status: 201,
     description: 'Successfully requested.',
-    type: UserDto,
+    type: UserRequestDto,
   })
-  async create(@Body() user: UserDto) {
+  async create(@Body() user: UserRequestDto) {
     return await this.usersService.create(user);
   }
 
@@ -53,7 +54,7 @@ export class UsersController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Update a user by Id' })
   @ApiResponse({ status: 204, description: 'Successfully requested.' })
-  async update(@Param('id') id: string, @Body() user: UserDto) {
+  async update(@Param('id') id: string, @Body() user: UserRequestDto) {
     return await this.usersService.update(id, user);
   }
 
