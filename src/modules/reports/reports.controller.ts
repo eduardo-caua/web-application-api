@@ -15,10 +15,7 @@ export class ReportsController {
   @ApiResponse({ status: 200, description: 'Successfully requested.' })
   @ApiQuery({ name: 'name', required: false, type: String })
   @ApiProduces('text/csv')
-  async findUsers(
-    @Res() res: Response,
-    @Query('name') name?: string,
-  ) {
+  async findUsers(@Res() res: Response, @Query('name') name?: string) {
     const users = await this.usersService.findAll(name);
     const fields = ['id', 'name', 'email', 'phone', 'createdAt', 'updatedAt'];
     const csvParser = new CsvParser({ fields });

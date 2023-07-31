@@ -24,7 +24,7 @@ export class App {
     );
     app.enableVersioning({
       type: VersioningType.URI,
-      defaultVersion: ['','v1'],
+      defaultVersion: ['', 'v1'],
       prefix: '',
     });
 

@@ -13,8 +13,8 @@ export class UsersService {
   ) {}
 
   async find(name: string, offset: number, limit: number): Promise<UsersDto> {
-    let options: object = {
-      attributes: {exclude: ['password']},
+    const options: object = {
+      attributes: { exclude: ['password'] },
       limit: limit,
       offset: offset,
       order: [['name', 'ASC']],
@@ -32,8 +32,8 @@ export class UsersService {
   }
 
   async findAll(name: string): Promise<UserDto[]> {
-    let options: object = {
-      attributes: {exclude: ['password']},
+    const options: object = {
+      attributes: { exclude: ['password'] },
       order: [['name', 'ASC']],
     };
 

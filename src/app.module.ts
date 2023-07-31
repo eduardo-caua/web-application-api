@@ -7,7 +7,7 @@ import { TerminusModule } from '@nestjs/terminus';
 import { UsersModule } from './modules/users/users.module';
 import { HealthModule } from './modules/health/health.module';
 import { ReportsModule } from './modules/reports/reports.module';
-    
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -23,7 +23,7 @@ import { ReportsModule } from './modules/reports/reports.module';
     TerminusModule,
     HealthModule,
     UsersModule,
-    ReportsModule
+    ReportsModule,
   ],
 })
 export class AppModule {}
