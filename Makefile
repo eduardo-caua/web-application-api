@@ -1,8 +1,5 @@
 PROJECT = "Web Application API"
 
-all: install test build start
-.PHONY: all
-
 clean: ;@echo "Cleaning node_modules" \
 	rm -rf node_modules
 .PHONY: clean

@@ -28,12 +28,20 @@ $ make install
 
 ## Running the app
 
+## locally
+
 ```bash
 # development
 $ make dev
 
 # production mode
 $ make start
+```
+
+## via Docker
+
+```bash
+$ docker-compose up --build
 ```
 
 ## Test
