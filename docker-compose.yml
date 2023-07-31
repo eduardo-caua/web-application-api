@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=wapi
+      - POSTGRES_USER=wapi
+      - POSTGRES_PASSWORD=wapi
+    ports:
+      - '5432:5432'
+    networks:
+      - postgres
+    volumes: 
+      - db:/var/lib/postgresql/data
+      - ./docker/scripts/db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+  app:
+    build:
+      dockerfile: "Dockerfile"
+    environment:
+      - PORT=5555
+      - DB_DIALECT=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=wapi
+      - DB_PASS=wapi
+      - DB_NAME=wapi
+    depends_on:
+      - db
+    networks:
+      - postgres
+    ports:
+      - '5555:5555'
+volumes:
+  db:
+    driver: local
+networks:
+  postgres:
+    driver: bridge
